@@ -5,7 +5,6 @@ import { IconSvgProps } from "@/types";
 export const Logo: React.FC<IconSvgProps> = ({
   size = 36,
   height,
-  ...props
 }) => (
   // png from public/rocket.png
   <img src="/rocket.png" alt="Rocket" width={size || height} height={size || height} />
