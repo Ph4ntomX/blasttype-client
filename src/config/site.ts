@@ -3,12 +3,8 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
   navItems: [
     {
-      label: "Home",
-      href: "/",
-    },
-    {
       label: "Practice",
-      href: "/docs",
+      href: "/passages",
     },
     {
       label: "Queue",
@@ -26,7 +22,7 @@ export const siteConfig = {
     },
     {
       label: "Practice",
-      href: "/docs",
+      href: "/passages",
     },
     {
       label: "Queue",

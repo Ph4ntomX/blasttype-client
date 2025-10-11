@@ -43,16 +43,13 @@ export default function LandingPage() {
   return (
     <DefaultLayout>
       <section className="relative flex flex-col items-center justify-center gap-4 py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-pink-500/20 to-cyan-500/20 dark:from-orange-600/10 dark:via-pink-600/10 dark:to-cyan-600/10 -z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.3),rgba(255,255,255,0))] dark:bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.2),rgba(0,0,0,0))] -z-10" />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
           className="inline-block max-w-3xl text-center justify-center px-4"
         >
-          <div className="mb-8">
+          <div className="mb-3">
             <h1 className={title({ size: "lg" })}>
               <span className={title({ color: "yellow", size: "lg" })}>
                 BlastType
@@ -60,7 +57,7 @@ export default function LandingPage() {
             </h1>
           </div>
           <div className="mb-6">
-            <h2 className={title({ color: "cyan", size: "lg" })}>
+            <h2 className={title({ color: "cyan", size: "sm" })}>
               Race. Type. Improve.
             </h2>
           </div>
@@ -72,7 +69,6 @@ export default function LandingPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row gap-4 mt-4"
         >
           <Button
@@ -82,25 +78,12 @@ export default function LandingPage() {
               variant: "shadow",
               size: "lg",
             })}
-            onPress={() => navigate("/login")}
+            onPress={() => navigate("/signup")}
             as={motion.button}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Get Started
-          </Button>
-          <Button
-            className={buttonStyles({
-              variant: "bordered",
-              radius: "full",
-              size: "lg"
-            })}
-            onPress={scrollToFeatures}
-            as={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Learn More
           </Button>
         </motion.div>
       </section>
@@ -110,7 +93,6 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className="text-center mb-16"
           >
@@ -123,7 +105,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               className="p-6 rounded-2xl bg-gradient-to-br from-orange-500/10 to-orange-500/5 border border-orange-500/20 hover:border-orange-500/40 transition-all duration-300"
@@ -140,7 +121,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               className="p-6 rounded-2xl bg-gradient-to-br from-pink-500/10 to-pink-500/5 border border-pink-500/20 hover:border-pink-500/40 transition-all duration-300"
@@ -157,7 +137,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300"
@@ -174,7 +153,6 @@ export default function LandingPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               className="p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-green-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300"
@@ -182,7 +160,7 @@ export default function LandingPage() {
               <div className="text-green-500 mb-4">
                 <ChartIcon />
               </div>
-              <h4 className="text-xl font-semibold mb-2">Player Profiles</h4>
+              <h4 className="text-xl font-semibold mb-2">Player Stats</h4>
               <p className="text-default-600">
                 Track your stats, view your history, and watch your typing skills grow over time.
               </p>
@@ -191,13 +169,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="py-8 border-t border-default-200">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <p className="text-default-600">
-            © 2025 BlastType. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </DefaultLayout>
   );
 }

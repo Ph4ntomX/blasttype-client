@@ -15,8 +15,14 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Logo } from "@/components/icons";
+import { useNavigate } from "react-router-dom";
+import { getAuthToken } from "@/api/auth";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  const loggedIn = getAuthToken() !== null;
+  
   return (
     <HeroUINavbar maxWidth="xl" position="sticky">
       <NavbarContent justify="start">
@@ -24,14 +30,14 @@ export const Navbar = () => {
           <Link
             className="flex justify-start items-center gap-1"
             color="foreground"
-            href="/"
+            href={loggedIn ? "/dashboard" : "/"}
           >
             <Logo />
             <p className="font-bold text-inherit">BlastType</p>
           </Link>
         </NavbarBrand>
         <div className="hidden md:flex gap-4 justify-start ml-2 pl-5">
-          {siteConfig.navItems.map((item) => (
+          {loggedIn && siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <Link
                 className={clsx(
@@ -58,10 +64,10 @@ export const Navbar = () => {
         <NavbarItem className="hidden md:flex">
           <Button
             className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
+            onPress={() => navigate(loggedIn ? "/logout" : "/login")}
             variant="flat"
           >
-            Create Account
+            {loggedIn ? "Log Out" : "Get Started"}
           </Button>
         </NavbarItem>
       </NavbarContent>
