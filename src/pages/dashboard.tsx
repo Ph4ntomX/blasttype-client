@@ -7,10 +7,10 @@ import { Card, CardBody } from "@heroui/card";
 import { Tabs, Tab } from "@heroui/tabs";
 import toast from "react-hot-toast";
 
-import { title, subtitle } from "@/components/primitives";
+import { subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { getAuthToken, removeAuthToken } from "@/api/auth";
-import { getUserData, UserData, UserStats } from "@/api/user";
+import { getAuthToken } from "@/api/auth";
+import { getUserData, UserData } from "@/api/user";
 
 export default function DashboardPage() {
     const navigate = useNavigate();

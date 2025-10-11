@@ -15,7 +15,6 @@ import { getPassages, getRandomPassage, Passage } from "@/api/passage";
 
 export default function PassageBrowserPage() {
   const navigate = useNavigate();
-  const [passages, setPassages] = useState<Passage[]>([]);
   const [filteredPassages, setFilteredPassages] = useState<Passage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,12 +28,10 @@ export default function PassageBrowserPage() {
     return capitalize(selectedDifficulty);
   }, [selectedDifficulty]);
 
-  // Fetch passages on mount
   useEffect(() => {
     const fetchPassages = async () => {
       try {
         const data = await getPassages();
-        setPassages(data);
         setFilteredPassages(data);
       } catch (error) {
         toast.error("Failed to load passages. Please try again.");

@@ -5,6 +5,7 @@ import DashboardPage from "@/pages/dashboard";
 import LoginPage from "@/pages/login";
 import SignupPage from "@/pages/signup";
 import PassageBrowserPage from "@/pages/passages";
+import SoloPracticePage from "@/pages/practice";
 import Logout from "./pages/logout";
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Route element={<LoginPage />} path="/login" />
       <Route element={<SignupPage />} path="/signup" />
       <Route element={<PassageBrowserPage />} path="/passages" />
-      <Route element={<div>Practice Page</div>}  path="/practice/:passageId" />
+      <Route element={<SoloPracticePage />} path="/practice/:id" />
       <Route element={<Logout />} path="/logout" />
     </Routes>
   );

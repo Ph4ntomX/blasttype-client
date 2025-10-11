@@ -35,11 +35,6 @@ const ChartIcon = ({ size = 48 }) => (
 export default function LandingPage() {
   const navigate = useNavigate();
 
-  const scrollToFeatures = () => {
-    const featuresSection = document.getElementById("features");
-    featuresSection?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <DefaultLayout>
       <section className="relative flex flex-col items-center justify-center gap-4 py-16 md:py-24 overflow-hidden">
