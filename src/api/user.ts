@@ -18,7 +18,7 @@ export interface Challenge {
 }
 
 export interface UserData {
-  id: string;
+  _id: string;
   username: string;
   email: string;
   solo_stats: UserStats;

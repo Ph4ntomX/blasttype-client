@@ -213,8 +213,7 @@ export default function PassageBrowserPage() {
                 >
                   <Card className="h-full">
                     <CardBody className="pb-2">
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-xl font-bold">{passage.title}</h3>
+                      <div className="flex justify-end items-start mb-2">
                         <Chip color={getDifficultyColor(passage.difficulty)} variant="dot">
                           {capitalize(passage.difficulty)}
                         </Chip>

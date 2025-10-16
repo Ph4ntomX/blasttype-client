@@ -4,11 +4,8 @@ import { API_URL } from "./api";
 
 export interface Passage {
   _id: string;
-  title: string;
   text: string;
   difficulty: "easy" | "medium" | "hard";
-  category?: string;
-  createdAt: string;
 }
 
 /**

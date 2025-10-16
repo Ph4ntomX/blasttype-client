@@ -10,7 +10,7 @@ import { getUserData } from "@/api/user";
 import { isAdminUser } from "@/api/user";
 import toast from "react-hot-toast";
 
-export default function GameSelectionPage() {
+export default function AdminSelectionPage() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -51,7 +51,7 @@ export default function GameSelectionPage() {
     },
   ] as const;
 
-  if (!isLoading) {
+  if (isLoading) {
     return null;
   }
 
@@ -64,8 +64,8 @@ export default function GameSelectionPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="mb-8 text-center">
-            <h1 className={title({ size: "sm" })}>Choose Your Queue</h1>
-            <p className={subtitle()}>Select a difficulty to play against others</p>
+            <h1 className={title({ size: "sm" })}>Admin Management</h1>
+            <p className={subtitle()}>Select a management task to perform</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -86,7 +86,7 @@ export default function GameSelectionPage() {
                       className={`${t.buttonClass} font-semibold px-6`}
                       onPress={() => navigate(`/admin/${t.key}`)}
                     >
-                      Join {t.title} Queue
+                      {t.title}
                     </Button>
                   </CardBody>
                 </Card>
