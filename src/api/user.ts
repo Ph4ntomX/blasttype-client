@@ -38,15 +38,11 @@ export const getUserData = async (): Promise<UserData> => {
     throw new Error("No authentication token found");
   }
 
-  console.log("Start")
-
   const response = await axios.get(`${API_URL}/users/profile`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   });
-  
-  console.log("End")
   
   return response.data;
 };

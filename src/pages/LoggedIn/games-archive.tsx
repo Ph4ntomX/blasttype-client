@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Spinner } from "@heroui/spinner";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardFooter } from "@heroui/card";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/dropdown";
+import { Select, SelectItem } from "@heroui/select";
 import { Chip } from "@heroui/chip";
 import toast from "react-hot-toast";
 
@@ -51,11 +51,7 @@ export default function GamesArchivePage() {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortBy>("date");
 
-  const capitalizedDifficulty = useMemo(() => {
-    return selectedDifficulty === "all"
-      ? "All"
-      : selectedDifficulty.charAt(0).toUpperCase() + selectedDifficulty.slice(1);
-  }, [selectedDifficulty]);
+  // Using Select components, no need to compute a button label
 
   const loggedIn = getAuthToken() !== null;
   if (!loggedIn) {
@@ -137,27 +133,27 @@ export default function GamesArchivePage() {
               className="flex-grow"
             />
 
-            <Dropdown>
-              <DropdownTrigger>
-                <Button variant="bordered">{`Difficulty: ${capitalizedDifficulty}`}</Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Difficulty options" onAction={onDifficultySelect}>
-                <DropdownItem key="all">All</DropdownItem>
-                <DropdownItem key="easy">Easy</DropdownItem>
-                <DropdownItem key="medium">Medium</DropdownItem>
-                <DropdownItem key="hard">Hard</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <Select
+              label="Difficulty"
+              selectedKeys={new Set([selectedDifficulty])}
+              onSelectionChange={(keys) => onDifficultySelect(Array.from(keys)[0] as string)}
+              className="max-w-xs"
+            >
+              <SelectItem key="all">All</SelectItem>
+              <SelectItem key="easy">Easy</SelectItem>
+              <SelectItem key="medium">Medium</SelectItem>
+              <SelectItem key="hard">Hard</SelectItem>
+            </Select>
 
-            <Dropdown>
-              <DropdownTrigger>
-                <Button variant="bordered">{`Sort: ${sortBy === "date" ? "Date" : "WPM"}`}</Button>
-              </DropdownTrigger>
-              <DropdownMenu aria-label="Sort options" onAction={onSortSelect}>
-                <DropdownItem key="date">Date</DropdownItem>
-                <DropdownItem key="wpm">WPM</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <Select
+              label="Sort"
+              selectedKeys={new Set([sortBy])}
+              onSelectionChange={(keys) => onSortSelect(Array.from(keys)[0] as string)}
+              className="max-w-xs"
+            >
+              <SelectItem key="date">Date</SelectItem>
+              <SelectItem key="wpm">WPM</SelectItem>
+            </Select>
           </div>
 
           {/* Loading */}

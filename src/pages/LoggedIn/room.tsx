@@ -151,7 +151,10 @@ export default function GamePage() {
       }
     });
 
+    let hasResults = false
+
     socket.on("results", (payload: ResultsPayload) => {
+      hasResults = true
       setFinalResults(payload);
     });
 
@@ -163,11 +166,12 @@ export default function GamePage() {
     });
 
     socket.on("disconnect", () => {
-      navigate("/selection");
-
-      if (!finalResults) {
+      if (!hasResults) {
         toast.error("Disconnected from room");
       }
+
+      navigate("/selection");
+
     });
 
     return () => {
@@ -275,7 +279,7 @@ export default function GamePage() {
                         
 
                         <motion.div
-                          animate={{ left: `calc(${prog}% ${prog > 50 ? "- 120px" : "+ 36px"})`, top: `${p.placement == null && prog > 50 ? "150%" : "50%"}` }}
+                          animate={{ left: `calc(${prog}% ${prog > 50 ? "- 140px" : "+ 36px"})`, top: `${p.placement == null && prog > 50 ? "150%" : "50%"}` }}
                           className="absolute -translate-y-1/2 flex items-center gap-2"
                           initial={{ left: "0%" }}
                           transition={{ duration: 0.3 }}

@@ -1,11 +1,11 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Spinner } from "@heroui/spinner";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { Card, CardBody, CardFooter } from "@heroui/card";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/dropdown";
+import { Select, SelectItem } from "@heroui/select";
 import { Chip } from "@heroui/chip";
 import toast from "react-hot-toast";
 
@@ -39,9 +39,7 @@ export default function PassageBrowserPage() {
     }
   };
 
-  const capitalizedDifficulty = useMemo(() => {
-    return capitalize(selectedDifficulty);
-  }, [selectedDifficulty]);
+  // Using Select component for difficulty filter, no button label needed
 
   const loggedIn = getAuthToken() !== null;
     if (!loggedIn) {
@@ -168,22 +166,17 @@ export default function PassageBrowserPage() {
               className="flex-grow"
             />
 
-            <Dropdown>
-              <DropdownTrigger>
-                <Button variant="bordered">
-                  {selectedDifficulty ? `Difficulty: ${capitalizedDifficulty}` : "Filter by difficulty"}
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                aria-label="Difficulty options"
-                onAction={(key) => setSelectedDifficulty(key as string)}
-              >
-                <DropdownItem key="all">All Difficulties</DropdownItem>
-                <DropdownItem key="easy">Easy</DropdownItem>
-                <DropdownItem key="medium">Medium</DropdownItem>
-                <DropdownItem key="hard">Hard</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <Select
+              label="Difficulty"
+              selectedKeys={new Set([selectedDifficulty])}
+              onSelectionChange={(keys) => setSelectedDifficulty(Array.from(keys)[0] as string)}
+              className="max-w-xs"
+            >
+              <SelectItem key="all">All</SelectItem>
+              <SelectItem key="easy">Easy</SelectItem>
+              <SelectItem key="medium">Medium</SelectItem>
+              <SelectItem key="hard">Hard</SelectItem>
+            </Select>
           </div>
 
           {/* Loading State */}
