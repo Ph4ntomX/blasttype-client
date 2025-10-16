@@ -79,7 +79,7 @@ export const Navbar = () => {
       <NavbarMenu className="flex md:hidden">
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={index}>
+            <NavbarMenuItem key={index} className="text-center">
               <Link
                 color="foreground"
                 href={item.href}
@@ -89,6 +89,13 @@ export const Navbar = () => {
               </Link>
             </NavbarMenuItem>
           ))}
+          <Button
+            className="text-sm font-normal text-default-600 bg-default-100"
+            onPress={() => navigate(loggedIn ? "/logout" : "/login")}
+            variant="flat"
+          >
+            {loggedIn ? "Log Out" : "Get Started"}
+          </Button>
         </div>
       </NavbarMenu>
     </HeroUINavbar>

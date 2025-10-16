@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Spinner } from "@heroui/spinner";
 import { Input } from "@heroui/input";
@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { getPassages, getRandomPassage, Passage } from "@/api/passage";
+import { getAuthToken } from "@/api/auth";
 
 export default function PassageBrowserPage() {
   const navigate = useNavigate();
@@ -24,9 +25,28 @@ export default function PassageBrowserPage() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
+  // Get badge color based on difficulty
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case "easy":
+        return "success";
+      case "medium":
+        return "primary";
+      case "hard":
+        return "danger";
+      default:
+        return "default";
+    }
+  };
+
   const capitalizedDifficulty = useMemo(() => {
     return capitalize(selectedDifficulty);
   }, [selectedDifficulty]);
+
+  const loggedIn = getAuthToken() !== null;
+    if (!loggedIn) {
+        return <Navigate to="/signup" />;
+  }
 
   useEffect(() => {
     const fetchPassages = async () => {
@@ -49,7 +69,7 @@ export default function PassageBrowserPage() {
     const fetchFilteredPassages = async () => {
       try {
         const data = await getPassages(
-          searchQuery || undefined, 
+          searchQuery || undefined,
           selectedDifficulty === "all" ? undefined : selectedDifficulty
         );
         setFilteredPassages(data);
@@ -72,20 +92,6 @@ export default function PassageBrowserPage() {
       toast.error(`Failed to get a random ${difficulty} passage. Please try again.`);
       console.error("Error getting random passage:", error);
       setIsLoading(false);
-    }
-  };
-
-  // Get badge color based on difficulty
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case "easy":
-        return "success";
-      case "medium":
-        return "primary";
-      case "hard":
-        return "danger";
-      default:
-        return "default";
     }
   };
 
@@ -117,30 +123,37 @@ export default function PassageBrowserPage() {
               <h1 className={title({ size: "sm" })}>Choose Your Passage 🚀</h1>
               <p className={subtitle()}>Warm up with any passage, or try a random one by difficulty.</p>
             </div>
-            
+
             {/* Random Passage Buttons */}
-            <div className="flex gap-2 mt-4 md:mt-0">
-              <Button 
-                size="sm" 
+            <div className="flex flex-col sm:flex-row gap-2 mt-4 md:mt-0">
+              <Button
+                size="md"
                 className={getDifficultyButtonClass("easy")}
                 onPress={() => handleRandomPassage("easy")}
               >
                 Random Easy
               </Button>
-              <Button 
-                size="sm" 
-                className={getDifficultyButtonClass("medium")}
-                onPress={() => handleRandomPassage("medium")}
-              >
-                Random Medium
-              </Button>
-              <Button 
-                size="sm" 
-                className={getDifficultyButtonClass("hard")}
-                onPress={() => handleRandomPassage("hard")}
-              >
-                Random Hard
-              </Button>
+
+              <div className="flex flex-row gap-2">
+
+                <Button
+                  size="md"
+                  className={getDifficultyButtonClass("medium")}
+                  onPress={() => handleRandomPassage("medium")}
+                >
+                  Random Medium
+                </Button>
+
+                <Button
+                  size="md"
+                  className={getDifficultyButtonClass("hard")}
+                  onPress={() => handleRandomPassage("hard")}
+                >
+                  Random Hard
+                </Button>
+              </div>
+
+
             </div>
           </div>
 
@@ -154,14 +167,14 @@ export default function PassageBrowserPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-grow"
             />
-            
+
             <Dropdown>
               <DropdownTrigger>
                 <Button variant="bordered">
                   {selectedDifficulty ? `Difficulty: ${capitalizedDifficulty}` : "Filter by difficulty"}
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu 
+              <DropdownMenu
                 aria-label="Difficulty options"
                 onAction={(key) => setSelectedDifficulty(key as string)}
               >
@@ -213,8 +226,8 @@ export default function PassageBrowserPage() {
                       </p>
                     </CardBody>
                     <CardFooter>
-                      <Button 
-                        color="primary" 
+                      <Button
+                        color="primary"
                         onPress={() => navigate(`/practice/${passage._id}`)}
                       >
                         Start Practice

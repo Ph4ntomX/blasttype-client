@@ -3,39 +3,31 @@ export type SiteConfig = typeof siteConfig;
 export const siteConfig = {
   navItems: [
     {
-      label: "Practice",
-      href: "/passages",
+      label: "Previous Games",
+      href: "/games",
     },
     {
       label: "Queue",
-      href: "/pricing",
+      href: "/selection",
     },
     {
-      label: "Challenges",
-      href: "/blog",
+      label: "Practice",
+      href: "/passages",
     },
   ],
   navMenuItems: [
     {
-      label: "Home",
-      href: "/",
+      label: "Previous Games",
+      href: "/games",
+    },
+    {
+      label: "Queue",
+      href: "/selection",
     },
     {
       label: "Practice",
       href: "/passages",
     },
-    {
-      label: "Queue",
-      href: "/pricing",
-    },
-    {
-      label: "Challenges",
-      href: "/blog",
-    },
-    {
-      label: "Sign Up",
-      href: "#"
-    }
   ],
   links: {
     github: "https://github.com/heroui-inc/heroui",
